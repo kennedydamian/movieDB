@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:orientation="horizontal"
+    android:background="@color/list_item_color"
+    android:elevation="@dimen/detail_header_elevation">
+
+    <ImageView
+        android:id="@+id/poster_image"
+        android:layout_width="@dimen/movie_item_image_size"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/release_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/movie_item_header_text"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:text="@string/release"/>
+
+        <TextView
+            android:id="@+id/release"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/movie_item_header_text"
+            android:textColor="@android:color/black" />
+
+
+        <TextView
+            android:id="@+id/rating_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/movie_item_header_text"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:text="@string/average_rating"
+            android:paddingTop="10dp"/>
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/movie_item_header_text"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/language_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/movie_item_header_text"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:text="@string/language"
+            android:paddingTop="10dp"/>
+
+        <TextView
+            android:id="@+id/language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/movie_item_header_text"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/adult_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/movie_item_header_text"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:text="@string/adult"
+            android:paddingTop="10dp"/>
+
+        <TextView
+            android:id="@+id/adult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/movie_item_header_text"
+            android:textColor="@android:color/black"/>
+
+    </LinearLayout>
+</LinearLayout>

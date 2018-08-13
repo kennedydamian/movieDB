@@ -23,7 +23,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> 
         }
     };
 
-    MovieListAdapter(List<Movie> movies, MovieListViewModel viewModel) {
+    public MovieListAdapter(List<Movie> movies, MovieListViewModel viewModel) {
 
         this.viewModel =  viewModel;
         this.movies = movies;

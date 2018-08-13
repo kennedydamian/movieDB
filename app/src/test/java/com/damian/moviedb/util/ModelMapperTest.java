@@ -29,7 +29,7 @@ public class ModelMapperTest {
     }
 
     @Test
-    public void convertApiToUiModel() {
+    public void test_convertApiToUiModel() {
         List<ApiMovieData> apiList = new ArrayList<>();
         apiList.add(apiMovieData);
 

@@ -28,84 +28,84 @@ public class MovieTest {
     }
 
     @Test
-    public void getId_returnsCorrectId() {
+    public void test_getId() {
         assertEquals(123, movie.getId());
     }
 
     @Test
-    public void getVoteCount_returnsCorrectValue() {
+    public void test_getVoteCount() {
         assertEquals(9876, movie.getVoteCount());
     }
 
     @Test
-    public void isVideo_returnsCorrectValue() {
+    public void test_isVideo() {
         assertEquals(true, movie.isVideo());
     }
 
     @Test
-    public void getVoteAverage_returnsCorrectValue() {
+    public void test_getVoteAverage() {
         assertEquals(1234.567, movie.getVoteAverage(), 0.0);
     }
 
     @Test
-    public void getName_returnsCorrectName() {
+    public void test_getName() {
         assertEquals("TestMovie", movie.getTitle());
     }
 
     @Test
-    public void getPopularity_returnsCorrectValue() {
+    public void test_getPopularity() {
         assertEquals(567.123, movie.getPopularity(), 0.0);
     }
 
     @Test
-    public void getPosterPath_returnsCorrectPath() {
+    public void test_getPosterPath() {
         assertEquals("blah.jpg", movie.getPosterPath());
     }
 
     @Test
-    public void getOriginalLanguage_returnsCorrectLanguage() {
+    public void test_getOriginalLanguage() {
         assertEquals("en", movie.getOriginalLanguage());
     }
 
     @Test
-    public void getOriginalTitle_returnsCorrectTitle() {
+    public void test_getOriginalTitle() {
         assertEquals("originalTitle", movie.getOriginalTitle());
     }
 
     @Test
-    public void getGenreIds_returnsCorrectValues() {
+    public void test_getGenreIds() {
         int[] testArray = {123, 345, 567};
         assertArrayEquals(testArray, movie.getGenreIds());
     }
 
     @Test
-    public void getBackdropPath_returnsCorrectPath() {
+    public void test_getBackdropPath() {
         assertEquals("blah2.jpg", movie.getBackdropPath());
     }
 
     @Test
-    public void isAdult_returnsCorrectValue() {
+    public void test_isAdult() {
         assertEquals(false, movie.isAdult());
     }
 
     @Test
-    public void getOverview_returnsCorrectOverview() {
+    public void test_getOverview() {
         assertEquals("overview", movie.getOverview());
     }
 
     @Test
-    public void getReleaseDate_returnsCorrectDate() {
+    public void test_getReleaseDate() {
         assertEquals("2018-17-06", movie.getReleaseDate());
     }
 
     @Test
-    public void parcel_write() {
+    public void test_parcel_write() {
         movie.writeToParcel(mockedParcel, Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
         verify(mockedParcel).writeString("TestMovie");
     }
 
     @Test
-    public void parcel_read() {
+    public void test_parcel_read() {
         Movie movie = new Movie(mockedParcel);
 
         movie.writeToParcel(mockedParcel, Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
@@ -117,12 +117,12 @@ public class MovieTest {
     }
 
     @Test
-    public void getPosterUrl_returnsCorrectUrl() {
+    public void test_getPosterUrl() {
         assertEquals("https://image.tmdb.org/t/p/w500/blah.jpg", movie.getPosterUrl());
     }
 
     @Test
-    public void getBackDropUrl_returnsCorrectUrl() {
+    public void test_getBackDropUrl() {
         assertEquals("https://image.tmdb.org/t/p/w500/blah2.jpg", movie.getBackDropUrl());
     }
 }

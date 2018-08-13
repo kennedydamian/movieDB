@@ -49,6 +49,10 @@ public class MovieDetailFragment extends Fragment {
     }
 
     private void populateView(Movie movie) {
+        if (movie == null) {
+            return;
+        }
+
         Picasso.get()
                 .load(movie.getPosterUrl())
                 .resize(400, 800)

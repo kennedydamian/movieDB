@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/route_list"
+        android:id="@+id/movie_list"
         android:name="com.example.moviedb.movielist.MovieListActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

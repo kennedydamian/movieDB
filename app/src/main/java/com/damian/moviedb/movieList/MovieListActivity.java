@@ -51,7 +51,7 @@ public class MovieListActivity extends MovieBaseActivity implements MovieItemNav
     }
 
     private void initListAdapter() {
-        RecyclerView recyclerView = findViewById(R.id.route_list);
+        RecyclerView recyclerView = findViewById(R.id.movie_list);
 
         recyclerView.addOnScrollListener(new InfiniteScrollListener() {
             @Override

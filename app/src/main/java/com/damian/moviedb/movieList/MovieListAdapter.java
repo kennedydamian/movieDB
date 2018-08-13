@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.damian.moviedb.R;
 import com.damian.moviedb.model.Movie;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> {
@@ -24,19 +25,21 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> 
     };
 
     public MovieListAdapter(List<Movie> movies, MovieListViewModel viewModel) {
-
         this.viewModel =  viewModel;
         this.movies = movies;
     }
 
     public void appendData (List<Movie> updatedMovies) {
+        if (movies==null) {
+            movies = new ArrayList<>();
+        }
         movies.addAll(updatedMovies);
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return movies==null ? null:movies.size();
+        return movies==null ? 0:movies.size();
     }
 
     @NonNull

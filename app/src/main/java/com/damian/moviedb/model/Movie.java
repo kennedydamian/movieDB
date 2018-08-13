@@ -2,6 +2,7 @@ package com.damian.moviedb.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.VisibleForTesting;
 
 public class Movie implements Parcelable{
 
@@ -22,7 +23,10 @@ public class Movie implements Parcelable{
 
     private static final String POSTER_URL = "https://image.tmdb.org/t/p/w500/";
 
-    public Movie(int id, int voteCount, boolean isVideo, double voteAverage, String title, double popularity, String posterPath, String originalLanguage, String originalTitle, int[] genreIds, String backdropPath, boolean isAdult, String overview, String releaseDate) {
+    public Movie(int id, int voteCount, boolean isVideo, double voteAverage, String title,
+                 double popularity, String posterPath, String originalLanguage,
+                 String originalTitle, int[] genreIds, String backdropPath,
+                 boolean isAdult, String overview, String releaseDate) {
         this.id = id;
         this.voteCount = voteCount;
         this.isVideo = isVideo;

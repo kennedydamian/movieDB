@@ -1,5 +1,7 @@
 package com.damian.moviedb.data.api;
 
+import android.support.annotation.VisibleForTesting;
+
 import com.google.gson.annotations.SerializedName;
 
 public class ApiMovieData {
@@ -100,5 +102,26 @@ public class ApiMovieData {
 
     public String getReleaseDate() {
         return releaseDate;
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.NONE)
+    public  ApiMovieData(int id, int voteCount, boolean isVideo, double voteAverage, String title,
+                         double popularity, String posterPath, String originalLanguage,
+                         String originalTitle, int[] genreIds, String backdropPath,
+                         boolean isAdult, String overview, String releaseDate) {
+        this.id = id;
+        this.voteCount = voteCount;
+        this.isVideo = isVideo;
+        this.voteAverage = voteAverage;
+        this.title = title;
+        this.popularity = popularity;
+        this.posterPath = posterPath;
+        this.originalLanguage = originalLanguage;
+        this.originalTitle = originalTitle;
+        this.genreIds = genreIds;
+        this.backdropPath = backdropPath;
+        this.isAdult = isAdult;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
     }
 }

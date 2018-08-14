@@ -2,7 +2,6 @@ package com.damian.moviedb.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.VisibleForTesting;
 
 public class Movie implements Parcelable{
 

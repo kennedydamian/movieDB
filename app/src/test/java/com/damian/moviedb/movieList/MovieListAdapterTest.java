@@ -1,54 +1,47 @@
 package com.damian.moviedb.movieList;
 
-import android.test.ActivityInstrumentationTestCase2;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.damian.moviedb.R;
 import com.damian.moviedb.model.Movie;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
-public class MovieListAdapterTest extends ActivityInstrumentationTestCase2<MovieListActivity> {
+public class MovieListAdapterTest {
 
-    private MovieListAdapter listAdapter;
+    private List<Movie> movies;
+    private MovieListViewModel viewModel = mock(MovieListViewModel.class);
 
-    public MovieListAdapterTest() {
-        super(MovieListActivity.class);
-
+    @Before
+    public void before() {
         Movie movie1 = mock(Movie.class);
         when(movie1.getTitle()).thenReturn("Test Movie1");
         Movie movie2 = mock(Movie.class);
         Movie movie3 = mock(Movie.class);
 
-        List<Movie> movies = new ArrayList<Movie>();
+        movies = new ArrayList<Movie>();
         movies.add(movie1);
         movies.add(movie2);
         movies.add(movie3);
-        MovieListViewModel viewModel = mock(MovieListViewModel.class);
-
-        listAdapter = new MovieListAdapter(movies, viewModel);
-    }
-
-    @Test
-    public void test_onBindViewHolder() {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.movie_list, null, false);
-        MovieListViewHolder viewHolder = new MovieListViewHolder(view);
-        listAdapter.onBindViewHolder(viewHolder, 0);
-        assertEquals("Test Movie1", viewHolder.name.getText());
-
-        assertEquals(View.VISIBLE, viewHolder.movieImageView.getVisibility());
-        assertEquals(View.VISIBLE, viewHolder.name.getVisibility());
     }
 
     @Test
     public void test_getItemCount() {
+        MovieListAdapter listAdapter = new MovieListAdapter(movies, viewModel);
         assertEquals(3, listAdapter.getItemCount());
     }
 
@@ -64,20 +57,32 @@ public class MovieListAdapterTest extends ActivityInstrumentationTestCase2<Movie
     public void test_appendData() {
         Movie movie4 = mock(Movie.class);
         Movie movie5 = mock(Movie.class);
+        List<Movie> extraMovies = new ArrayList<Movie>();
+        extraMovies.add(movie4);
+        extraMovies.add(movie5);
 
-        List<Movie> movies = new ArrayList<Movie>();
-        movies.add(movie4);
-        movies.add(movie5);
+        MovieListAdapter listAdapter = spy(MovieListAdapter.class);
+        listAdapter.setList(movies);
+        doNothing().when(listAdapter).onDataChanged();
 
-        listAdapter.appendData(movies);
+        listAdapter.appendData(extraMovies);
         assertEquals(5, listAdapter.getItemCount());
+        verify(listAdapter, times(1)).onDataChanged();
     }
 
     @Test
     public void test_appendData_nullList() {
-        MovieListViewModel viewModel = mock(MovieListViewModel.class);
+        Movie movie4 = mock(Movie.class);
+        Movie movie5 = mock(Movie.class);
+        List<Movie> extraMovies = new ArrayList<Movie>();
+        extraMovies.add(movie4);
+        extraMovies.add(movie5);
 
-        MovieListAdapter emptyListAdapter = new MovieListAdapter(null, viewModel);
-        assertEquals(0, emptyListAdapter.getItemCount());
+        MovieListAdapter listAdapter = spy(MovieListAdapter.class);
+        doNothing().when(listAdapter).onDataChanged();
+
+        listAdapter.appendData(extraMovies);
+        assertEquals(2, listAdapter.getItemCount());
+        verify(listAdapter, times(1)).onDataChanged();
     }
 }

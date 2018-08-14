@@ -3,8 +3,6 @@ package com.damian.moviedb;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
-import com.damian.moviedb.R;
-
 public abstract class MovieBaseActivity extends AppCompatActivity {
 
     protected final void addFragmentToContainer(Fragment fragment) {

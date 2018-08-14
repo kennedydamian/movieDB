@@ -1,14 +1,9 @@
 package com.damian.moviedb.movieList;
 
-import android.view.LayoutInflater;
-import android.view.View;
-
-import com.damian.moviedb.R;
 import com.damian.moviedb.model.Movie;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;

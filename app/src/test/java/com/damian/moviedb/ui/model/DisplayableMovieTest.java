@@ -1,4 +1,4 @@
-package com.damian.moviedb.model;
+package com.damian.moviedb.ui.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -15,14 +15,14 @@ import static org.mockito.Mockito.verify;
 /**
  *
  */
-public class MovieTest {
+public class DisplayableMovieTest {
 
     private Parcel mockedParcel = mock(Parcel.class);
-    private Movie movie;
+    private DisplayableMovie movie;
 
     @Before
     public void before() {
-        movie = new Movie(123, 9876, true, 1234.567, "TestMovie", 567.123,
+        movie = new DisplayableMovie(123, 9876, true, 1234.567, "TestMovie", 567.123,
                 "blah.jpg", "en", "originalTitle", new int[]{123, 345, 567},
                 "blah2.jpg", false, "overview", "2018-17-06");
     }
@@ -106,7 +106,7 @@ public class MovieTest {
 
     @Test
     public void test_parcel_read() {
-        Movie movie = new Movie(mockedParcel);
+        DisplayableMovie movie = new DisplayableMovie(mockedParcel);
 
         movie.writeToParcel(mockedParcel, Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
 

@@ -1,4 +1,4 @@
-package com.damian.moviedb.movieList;
+package com.damian.moviedb.ui.movieList;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -6,14 +6,12 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.damian.moviedb.Constants;
-import com.damian.moviedb.MovieBaseActivity;
 import com.damian.moviedb.R;
-import com.damian.moviedb.model.Movie;
-import com.damian.moviedb.movieDetail.MovieDetailActivity;
-import com.damian.moviedb.movieDetail.MovieDetailFragment;
-import com.damian.moviedb.movieDetail.MovieDetailViewModel;
-
-import java.util.ArrayList;
+import com.damian.moviedb.data.db.model.Movie;
+import com.damian.moviedb.ui.MovieBaseActivity;
+import com.damian.moviedb.ui.movieDetail.MovieDetailActivity;
+import com.damian.moviedb.ui.movieDetail.MovieDetailFragment;
+import com.damian.moviedb.ui.movieDetail.MovieDetailViewModel;
 
 public class MovieListActivity extends MovieBaseActivity implements MovieItemNavigator{
 
@@ -28,9 +26,7 @@ public class MovieListActivity extends MovieBaseActivity implements MovieItemNav
         twoPane = findViewById(R.id.fragment_container)!=null;
 
         listViewModel = ViewModelProviders.of(this).get(MovieListViewModel.class);
-        listViewModel.getMovies().observe(this, movies -> {
-            listAdapter.appendData(movies);
-        });
+
         listViewModel.getSelectedMovie().observe(this, movie -> {
             if (movie!=null) {
                 openMovieDetails(movie);
@@ -38,8 +34,6 @@ public class MovieListActivity extends MovieBaseActivity implements MovieItemNav
         });
 
         initListAdapter();
-
-        listViewModel.getPopularMovies(1);
     }
 
     @Override
@@ -52,14 +46,9 @@ public class MovieListActivity extends MovieBaseActivity implements MovieItemNav
 
     private void initListAdapter() {
         RecyclerView recyclerView = findViewById(R.id.movie_list);
+        listAdapter = new MovieListAdapter(listViewModel);
 
-        recyclerView.addOnScrollListener(new InfiniteScrollListener() {
-            @Override
-            public void onEndReached(int page) {
-                listViewModel.getPopularMovies(page);
-            }
-        });
-        listAdapter = new MovieListAdapter(new ArrayList<Movie>(), listViewModel);
+        listViewModel.getMovies().observe(this, listAdapter::submitList);
         recyclerView.setAdapter(listAdapter);
     }
 

@@ -1,4 +1,4 @@
-package com.damian.moviedb.movieDetail;
+package com.damian.moviedb.ui.movieDetail;
 
 import android.content.Intent;
 import android.support.test.espresso.Espresso;

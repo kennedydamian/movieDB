@@ -1,10 +1,10 @@
-package com.damian.moviedb.data.api;
+package com.damian.moviedb.data.api.model;
 
 import android.support.annotation.VisibleForTesting;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ApiMovieData {
+public class ApiMovie {
 
     @SerializedName("vote_count")
     private int voteCount;
@@ -105,10 +105,10 @@ public class ApiMovieData {
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.NONE)
-    public  ApiMovieData(int id, int voteCount, boolean isVideo, double voteAverage, String title,
-                         double popularity, String posterPath, String originalLanguage,
-                         String originalTitle, int[] genreIds, String backdropPath,
-                         boolean isAdult, String overview, String releaseDate) {
+    public ApiMovie(int id, int voteCount, boolean isVideo, double voteAverage, String title,
+                    double popularity, String posterPath, String originalLanguage,
+                    String originalTitle, int[] genreIds, String backdropPath,
+                    boolean isAdult, String overview, String releaseDate) {
         this.id = id;
         this.voteCount = voteCount;
         this.isVideo = isVideo;

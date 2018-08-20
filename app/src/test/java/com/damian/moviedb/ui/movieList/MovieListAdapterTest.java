@@ -1,6 +1,4 @@
-package com.damian.moviedb.movieList;
-
-import com.damian.moviedb.model.Movie;
+package com.damian.moviedb.ui.movieList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,17 +16,17 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 public class MovieListAdapterTest {
 
-    private List<Movie> movies;
+    private List<DisplayableMovie> movies;
     private MovieListViewModel viewModel = mock(MovieListViewModel.class);
 
     @Before
     public void before() {
-        Movie movie1 = mock(Movie.class);
+        DisplayableMovie movie1 = mock(DisplayableMovie.class);
         when(movie1.getTitle()).thenReturn("Test Movie1");
-        Movie movie2 = mock(Movie.class);
-        Movie movie3 = mock(Movie.class);
+        DisplayableMovie movie2 = mock(DisplayableMovie.class);
+        DisplayableMovie movie3 = mock(DisplayableMovie.class);
 
-        movies = new ArrayList<Movie>();
+        movies = new ArrayList<DisplayableMovie>();
         movies.add(movie1);
         movies.add(movie2);
         movies.add(movie3);
@@ -50,9 +48,9 @@ public class MovieListAdapterTest {
 
     @Test
     public void test_appendData() {
-        Movie movie4 = mock(Movie.class);
-        Movie movie5 = mock(Movie.class);
-        List<Movie> extraMovies = new ArrayList<Movie>();
+        DisplayableMovie movie4 = mock(DisplayableMovie.class);
+        DisplayableMovie movie5 = mock(DisplayableMovie.class);
+        List<DisplayableMovie> extraMovies = new ArrayList<DisplayableMovie>();
         extraMovies.add(movie4);
         extraMovies.add(movie5);
 
@@ -67,9 +65,9 @@ public class MovieListAdapterTest {
 
     @Test
     public void test_appendData_nullList() {
-        Movie movie4 = mock(Movie.class);
-        Movie movie5 = mock(Movie.class);
-        List<Movie> extraMovies = new ArrayList<Movie>();
+        DisplayableMovie movie4 = mock(DisplayableMovie.class);
+        DisplayableMovie movie5 = mock(DisplayableMovie.class);
+        List<DisplayableMovie> extraMovies = new ArrayList<DisplayableMovie>();
         extraMovies.add(movie4);
         extraMovies.add(movie5);
 

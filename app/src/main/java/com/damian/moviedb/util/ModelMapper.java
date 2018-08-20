@@ -1,18 +1,18 @@
 package com.damian.moviedb.util;
 
-import com.damian.moviedb.data.api.ApiMovieData;
-import com.damian.moviedb.model.Movie;
+import com.damian.moviedb.data.api.model.ApiMovie;
+import com.damian.moviedb.data.db.model.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModelMapper {
 
-    public static List<Movie> convertApiToUiModel(List<ApiMovieData> apiMovie) {
-        List<Movie> displayableMovies = new ArrayList<Movie>();
-        for (ApiMovieData apiMovieData: apiMovie) {
+    public static List<Movie> convertApiToDbModel(List<ApiMovie> apiMovies, int resultPage) {
+        List<Movie> movieEntities = new ArrayList<>();
+        for (ApiMovie apiMovieData: apiMovies) {
 
-            displayableMovies.add(new Movie(apiMovieData.getId(),
+            movieEntities.add(new Movie(apiMovieData.getId(),
                     apiMovieData.getVoteCount(),
                     apiMovieData.isVideo(),
                     apiMovieData.getVoteAverage(),
@@ -25,8 +25,9 @@ public class ModelMapper {
                     apiMovieData.getBackdropPath(),
                     apiMovieData.isAdult(),
                     apiMovieData.getOverview(),
-                    apiMovieData.getReleaseDate()));
+                    apiMovieData.getReleaseDate(),
+                    resultPage));
         }
-        return displayableMovies;
+        return movieEntities;
     }
 }

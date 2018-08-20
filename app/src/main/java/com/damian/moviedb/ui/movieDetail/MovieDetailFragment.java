@@ -1,4 +1,4 @@
-package com.damian.moviedb.movieDetail;
+package com.damian.moviedb.ui.movieDetail;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.damian.moviedb.R;
-import com.damian.moviedb.model.Movie;
+import com.damian.moviedb.data.db.model.Movie;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;

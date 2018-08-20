@@ -1,9 +1,9 @@
-package com.damian.moviedb.movieDetail;
+package com.damian.moviedb.ui.movieDetail;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.damian.moviedb.model.Movie;
+import com.damian.moviedb.data.db.model.Movie;
 
 public class MovieDetailViewModel extends ViewModel {
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="movie_item_image_width">350dp</dimen>
+    <dimen name="movie_item_image_height">525dp</dimen>
+
+    <dimen name="movie_detail_image_width">450dp</dimen>
+    <dimen name="movie_detail_image_height">675dp</dimen>
+
+</resources>

@@ -1,8 +1,8 @@
 package com.damian.moviedb.ui.movieDetail;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +13,13 @@ import com.damian.moviedb.R;
 import com.damian.moviedb.data.db.model.Movie;
 import com.squareup.picasso.Picasso;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.DaggerFragment;
 
-public class MovieDetailFragment extends Fragment {
+public class MovieDetailFragment extends DaggerFragment {
 
     @BindView(R.id.poster_image) ImageView backdrop;
     @BindView(R.id.release) TextView release;
@@ -28,6 +31,10 @@ public class MovieDetailFragment extends Fragment {
 
     private MovieDetailViewModel detailViewModel;
 
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+
+    @Inject
     public MovieDetailFragment () {}
 
     @Override
@@ -42,7 +49,7 @@ public class MovieDetailFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        detailViewModel = ViewModelProviders.of(getActivity()).get(MovieDetailViewModel.class);
+        detailViewModel = ViewModelProviders.of(getActivity(), viewModelFactory).get(MovieDetailViewModel.class);
         detailViewModel.getSelectedMovie().observe(getActivity(), movie -> {
             populateView(movie);
         });
@@ -52,12 +59,9 @@ public class MovieDetailFragment extends Fragment {
         if (movie == null) {
             return;
         }
-
         Picasso.get()
-                .load(movie.getPosterUrl())
-                .resize(400, 800)
-                .centerInside()
-                .into(backdrop);
+            .load(movie.getPosterUrl())
+            .into(backdrop);
 
         release.setText(movie.getReleaseDate());
         rating.setText(String.valueOf(movie.getVoteAverage()));

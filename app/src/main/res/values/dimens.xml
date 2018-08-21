@@ -5,9 +5,14 @@
     <dimen name="list_item_text">15sp</dimen>
     <dimen name="list_item_text_padding">15dp</dimen>
 
-    <dimen name="movie_item_image_size">150dp</dimen>
+    <dimen name="movie_item_image_width">150dp</dimen>
+    <dimen name="movie_item_image_height">225dp</dimen>
     <dimen name="movie_item_header_text">15sp</dimen>
     <dimen name="movie_item_title">20sp</dimen>
 
     <dimen name="detail_header_elevation">5dp</dimen>
+
+    <dimen name="movie_detail_image_width">200dp</dimen>
+    <dimen name="movie_detail_image_height">300dp</dimen>
+
 </resources>

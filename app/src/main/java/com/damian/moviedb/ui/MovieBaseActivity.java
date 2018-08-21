@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.damian.moviedb.R;
 
-public abstract class MovieBaseActivity extends AppCompatActivity {
+import dagger.android.support.DaggerAppCompatActivity;
+
+public abstract class MovieBaseActivity extends DaggerAppCompatActivity {
 
     protected final void addFragmentToContainer(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()

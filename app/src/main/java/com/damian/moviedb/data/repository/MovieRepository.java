@@ -1,6 +1,5 @@
 package com.damian.moviedb.data.repository;
 
-import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.paging.DataSource;
@@ -9,13 +8,16 @@ import android.arch.paging.PagedList;
 
 import com.damian.moviedb.Constants;
 import com.damian.moviedb.data.api.MovieApi;
-import com.damian.moviedb.data.api.MovieApiCreator;
 import com.damian.moviedb.data.api.model.ApiDiscoverResponse;
 import com.damian.moviedb.data.db.MovieDatabase;
 import com.damian.moviedb.data.db.model.Movie;
 import com.damian.moviedb.util.ModelMapper;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
+import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -27,13 +29,16 @@ public class MovieRepository implements Repository {
 
     private MutableLiveData<DataState> dataState = new MutableLiveData<>();
 
-    private static final int LIST_PAGE_SIZE                 = 20;
-    private static final int LIST_INITIAL_LOAD_SIZE_HINT    = 20;
-    private static final int LIST_PREFETCH_DISTANCE         = 5;
+    private static final int LIST_PAGE_SIZE                 = 5;
+    private static final int LIST_INITIAL_LOAD_SIZE_HINT    = 5;
+    private static final int LIST_PREFETCH_DISTANCE         = 1;
 
-    public MovieRepository(Application application) {
-        moviesApi = MovieApiCreator.create();
-        movieDb = MovieDatabase.getInstance(application);
+    private Executor executor;
+    @Inject
+    public MovieRepository(MovieApi moviesApi, MovieDatabase movieDb) {
+        this.moviesApi = moviesApi;
+        this.movieDb = movieDb;
+        executor = Executors.newSingleThreadExecutor();
     }
 
     public LiveData<DataState> getDataState() {
@@ -63,6 +68,12 @@ public class MovieRepository implements Repository {
 
     public void insertItemsIntoDb(List<Movie> movies) {
         movieDb.getMovieDao().insert(movies);
+
+        executor.execute(() -> {
+            movieDb.runInTransaction(() -> {
+                movieDb.getMovieDao().insert(movies);
+            });
+        });
     }
 
     @Override

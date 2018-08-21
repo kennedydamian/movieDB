@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingLeft="10dp"
-    android:layout_marginTop="3dp"
-    android:background="@color/list_item_color">
+    android:layout_marginTop="3dp">
 
     <ImageView
         android:id="@+id/movie_image"
-        android:layout_width="@dimen/movie_item_image_size"
-        android:layout_height="wrap_content"/>
+        android:layout_width="@dimen/movie_item_image_width"
+        android:layout_height="@dimen/movie_item_image_height"/>
 
     <TextView
         android:id="@+id/movie_name"
@@ -19,6 +18,6 @@
         android:textColor="@android:color/black"
         android:textAppearance="?attr/textAppearanceListItem"
         android:paddingTop="@dimen/list_item_text_padding"
-        android:paddingLeft="@dimen/list_item_text_padding"
+        android:paddingBottom="@dimen/list_item_text_padding"
         android:textSize="@dimen/list_item_text"/>
 </LinearLayout>

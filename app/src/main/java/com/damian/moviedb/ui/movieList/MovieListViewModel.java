@@ -1,28 +1,31 @@
 package com.damian.moviedb.ui.movieList;
 
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
+import android.arch.lifecycle.ViewModel;
 import android.arch.paging.PagedList;
 
 import com.damian.moviedb.data.db.model.Movie;
 import com.damian.moviedb.data.repository.DataState;
 import com.damian.moviedb.data.repository.MovieRepository;
 
-public class MovieListViewModel extends AndroidViewModel {
+import javax.inject.Inject;
 
-    private MovieRepository moviesRepo;
+public class MovieListViewModel extends ViewModel {
+
+    @Inject
+    MovieRepository moviesRepo;
+
     private LiveData<DataState> repoResult;
     private LiveData<PagedList<Movie>> movies;
-
     private MutableLiveData<Movie> selectedMovie;
 
-    public MovieListViewModel(Application application) {
-        super(application);
-        moviesRepo = new MovieRepository(application);
+    @Inject
+    public MovieListViewModel(MovieRepository moviesRepo) {
+        this.moviesRepo = moviesRepo;
+
         repoResult = moviesRepo.getDataState();
         movies = Transformations.switchMap(repoResult, result -> {
             return result.pagedList;

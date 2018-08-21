@@ -26,16 +26,12 @@ public class MovieItemViewHolder extends RecyclerView.ViewHolder {
         if(movie.getPosterUrl() != null){
 
             Picasso.get()
-                    .load(movie.getPosterUrl())
-                    .resize(300, 600)
-                    .centerInside()
-                    .into(movieImageView);
+                .load(movie.getPosterUrl())
+                .into(movieImageView);
         } else {
             movieImageView.setImageBitmap(null);
         }
 
         name.setText(movie.getTitle());
     }
-
-
 }

@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/poster_image"
-        android:layout_width="@dimen/movie_item_image_size"
-        android:layout_height="wrap_content"/>
+        android:layout_width="@dimen/movie_detail_image_width"
+        android:layout_height="@dimen/movie_detail_image_height"/>
 
     <LinearLayout
         android:layout_width="match_parent"

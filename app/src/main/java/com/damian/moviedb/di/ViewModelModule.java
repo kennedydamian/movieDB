@@ -1,9 +1,7 @@
 package com.damian.moviedb.di;
 
 import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 
-import com.damian.moviedb.ui.MovieViewModelFactory;
 import com.damian.moviedb.ui.movieDetail.MovieDetailViewModel;
 import com.damian.moviedb.ui.movieList.MovieListViewModel;
 

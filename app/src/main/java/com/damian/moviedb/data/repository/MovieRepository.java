@@ -15,7 +15,6 @@ import com.damian.moviedb.util.ModelMapper;
 
 import java.util.List;
 import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -26,6 +25,7 @@ public class MovieRepository implements Repository {
 
     private MovieApi moviesApi;
     private MovieDatabase movieDb;
+    private Executor executor;
 
     private MutableLiveData<DataState> dataState = new MutableLiveData<>();
 
@@ -33,21 +33,23 @@ public class MovieRepository implements Repository {
     private static final int LIST_INITIAL_LOAD_SIZE_HINT    = 5;
     private static final int LIST_PREFETCH_DISTANCE         = 1;
 
-    private Executor executor;
+
     @Inject
-    public MovieRepository(MovieApi moviesApi, MovieDatabase movieDb) {
+    public MovieRepository(MovieApi moviesApi, MovieDatabase movieDb, Executor executor) {
         this.moviesApi = moviesApi;
         this.movieDb = movieDb;
-        executor = Executors.newSingleThreadExecutor();
+        this.executor = executor;
     }
 
     public LiveData<DataState> getDataState() {
         if (dataState==null) {
             dataState = new MutableLiveData<>();
         }
+
         return dataState;
     }
 
+    @SuppressWarnings("unchecked")
     public void initRepo() {
         MovieBoundaryCallback boundaryCallback =
                 new MovieBoundaryCallback(this);
@@ -66,7 +68,7 @@ public class MovieRepository implements Repository {
         dataState.setValue(new DataState(listBuilder.build()));
     }
 
-    public void insertItemsIntoDb(List<Movie> movies) {
+    public void insertMoviesIntoDb(List<Movie> movies) {
         movieDb.getMovieDao().insert(movies);
 
         executor.execute(() -> {
@@ -78,19 +80,30 @@ public class MovieRepository implements Repository {
 
     @Override
     public void fetchPageOfData(int page) {
+        DisposableSingleObserver<ApiDiscoverResponse> disposable = getApiObserver(page);
+
         moviesApi.getMostPopularMovies(page, Constants.API_KEY)
                 .subscribeOn(Schedulers.io())
-                .subscribeWith(new DisposableSingleObserver<ApiDiscoverResponse>() {
-                    @Override
-                    public void onSuccess(ApiDiscoverResponse response) {
-                        List<Movie> movieEntities = ModelMapper.convertApiToDbModel(response.getResults(), page);
-                        insertItemsIntoDb(movieEntities);
-                    }
+                .subscribeWith(disposable);
 
-                    @Override
-                    public void onError(Throwable e) {
-                        // Handle errors
-                    }
-                });
+    }
+
+    private DisposableSingleObserver getApiObserver(int page) {
+        return new DisposableSingleObserver<ApiDiscoverResponse>() {
+            @Override
+            public void onSuccess(ApiDiscoverResponse response) {
+                if (response.getTotalResults()>0 && response.getResults()!=null) {
+                    List<Movie> movieEntities = ModelMapper.convertApiToDbModel(response.getResults(), page);
+                    insertMoviesIntoDb(movieEntities);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                // todo
+                // handle api Errors here
+                // Set error field on observed dataState
+            }
+        };
     }
 }

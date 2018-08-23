@@ -12,19 +12,19 @@ import com.damian.moviedb.data.db.model.Movie;
 
 public class MovieListAdapter extends PagedListAdapter<Movie, MovieItemViewHolder> {
 
-    private MovieListViewModel viewModel;
+    private MovieListNavigator movieListNavigator;
 
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Movie selectedMovie = (Movie) view.getTag();
-            viewModel.getSelectedMovie().setValue(selectedMovie);
+            movieListNavigator.openMovieDetails(selectedMovie);
         }
     };
 
-    protected MovieListAdapter(MovieListViewModel viewModel) {
+    protected MovieListAdapter(MovieListNavigator movieListNavigator) {
         super(DIFF_CALLBACK);
-        this.viewModel = viewModel;
+        this.movieListNavigator = movieListNavigator;
     }
 
     @NonNull

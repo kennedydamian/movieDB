@@ -2,7 +2,7 @@ package com.damian.moviedb.ui.movieList;
 
 import com.damian.moviedb.data.db.model.Movie;
 
-public interface MovieItemNavigator {
+public interface MovieListNavigator {
 
-    void openMovieDetails(Movie movieId);
+    void openMovieDetails(Movie selectedMovie);
 }

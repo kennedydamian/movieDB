@@ -1,6 +1,7 @@
 package com.damian.moviedb.util;
 
 import com.damian.moviedb.data.api.model.ApiMovie;
+import com.damian.moviedb.data.db.model.Movie;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,14 +14,14 @@ import static org.junit.Assert.assertEquals;
 
 public class ModelMapperTest {
 
-    private DisplayableMovie movie;
+    private Movie movie;
     private ApiMovie apiMovieData;
 
     @Before
     public void before() {
-        movie = new DisplayableMovie(123, 9876, true, 1234.567, "TestMovie", 567.123,
+        movie = new Movie(123, 9876, true, 1234.567, "TestMovie", 567.123,
                 "blah.jpg", "en", "originalTitle", new int[]{123, 345, 567},
-                "blah2.jpg", false, "overview", "2018-17-06");
+                "blah2.jpg", false, "overview", "2018-17-06", 3);
 
         apiMovieData = new ApiMovie(123, 9876, true, 1234.567, "TestMovie", 567.123,
                 "blah.jpg", "en", "originalTitle", new int[]{123, 345, 567},
@@ -29,10 +30,10 @@ public class ModelMapperTest {
 
     @Test
     public void test_convertApiToUiModel() {
-        List<ApiMovie> apiList = new ArrayList<>();
-        apiList.add(apiMovieData);
+        List<ApiMovie> dbList = new ArrayList<>();
+        dbList.add(apiMovieData);
 
-        DisplayableMovie convertedMovie = ModelMapper.convertApiToUiModel(apiList).get(0);
+        Movie convertedMovie = ModelMapper.convertApiToDbModel(dbList, 3).get(0);
         assertEquals(movie.getId(), convertedMovie.getId());
         assertEquals(movie.getTitle(), convertedMovie.getTitle());
         assertEquals(movie.getOriginalLanguage(), convertedMovie.getOriginalLanguage());
@@ -40,6 +41,7 @@ public class ModelMapperTest {
         assertArrayEquals(movie.getGenreIds(), convertedMovie.getGenreIds());
         assertEquals(movie.getBackdropPath(), convertedMovie.getBackdropPath());
         assertEquals(movie.getPosterUrl(), convertedMovie.getPosterUrl());
+        assertEquals(movie.getResultPage(), convertedMovie.getResultPage());
     }
 
 }

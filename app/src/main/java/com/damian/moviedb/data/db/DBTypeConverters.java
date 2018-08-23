@@ -6,7 +6,7 @@ public class DBTypeConverters {
 
     @TypeConverter
     public static int[] stringToIntArray(String stringOfInts) {
-        if (stringOfInts.isEmpty()) {
+        if (stringOfInts==null || stringOfInts.isEmpty()) {
             return new int [] {-1};
         }
         String[] arrayOfStrings = stringOfInts.split(",");

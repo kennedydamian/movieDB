@@ -5,6 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.support.annotation.VisibleForTesting;
 
 import com.damian.moviedb.data.db.model.Movie;
 
@@ -17,4 +18,8 @@ public interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<Movie> movies);
+
+    @VisibleForTesting(otherwise = VisibleForTesting.NONE)
+    @Query("SELECT * FROM Movie")
+    List<Movie> allMovies();
 }

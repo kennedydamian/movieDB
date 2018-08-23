@@ -12,21 +12,7 @@ public class ModelMapper {
         List<Movie> movieEntities = new ArrayList<>();
         for (ApiMovie apiMovieData: apiMovies) {
 
-            movieEntities.add(new Movie(apiMovieData.getId(),
-                    apiMovieData.getVoteCount(),
-                    apiMovieData.isVideo(),
-                    apiMovieData.getVoteAverage(),
-                    apiMovieData.getTitle(),
-                    apiMovieData.getPopularity(),
-                    apiMovieData.getPosterPath(),
-                    apiMovieData.getOriginalLanguage(),
-                    apiMovieData.getOriginalTitle(),
-                    apiMovieData.getGenreIds(),
-                    apiMovieData.getBackdropPath(),
-                    apiMovieData.isAdult(),
-                    apiMovieData.getOverview(),
-                    apiMovieData.getReleaseDate(),
-                    resultPage));
+            movieEntities.add(new Movie(apiMovieData, resultPage));
         }
         return movieEntities;
     }

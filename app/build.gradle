@@ -41,11 +41,7 @@ dependencies {
     androidTestImplementation "com.android.support.test:rules:$support_test_version"
 
     // Mockito
-    def mockito_version = "2.2.2"
-    testImplementation "org.mockito:mockito-core:$mockito_version"
-    testImplementation "org.mockito:mockito-core:$mockito_version"
-    androidTestImplementation "org.mockito:mockito-core:$mockito_version"
-    androidTestImplementation "com.google.dexmaker:dexmaker-mockito:1.2"
+    testImplementation "org.mockito:mockito-core:2.10.0"
 
     // Lifecycle
     def lifecycle_version = "1.1.1"
@@ -109,4 +105,8 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     implementation "com.google.dagger:dagger-android:$dagger_version"
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
+
+    // Mockwebserver
+    testImplementation 'com.squareup.okhttp3:mockwebserver:3.11.0'
+
 }

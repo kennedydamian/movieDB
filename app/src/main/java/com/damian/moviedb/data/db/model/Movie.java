@@ -5,6 +5,9 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.VisibleForTesting;
+
+import com.damian.moviedb.data.api.model.ApiMovie;
 
 @Entity (tableName = "movie")
 public class Movie implements Parcelable {
@@ -56,24 +59,21 @@ public class Movie implements Parcelable {
 
     private static final String POSTER_URL = "https://image.tmdb.org/t/p/w500/";
 
-    public Movie(int id, int voteCount, boolean isVideo, double voteAverage, String title,
-                 double popularity, String posterPath, String originalLanguage,
-                 String originalTitle, int[] genreIds, String backdropPath,
-                 boolean isAdult, String overview, String releaseDate, int resultPage) {
-        this.id = id;
-        this.voteCount = voteCount;
-        this.isVideo = isVideo;
-        this.voteAverage = voteAverage;
-        this.title = title;
-        this.popularity = popularity;
-        this.posterPath = posterPath;
-        this.originalLanguage = originalLanguage;
-        this.originalTitle = originalTitle;
-        this.genreIds = genreIds;
-        this.backdropPath = backdropPath;
-        this.isAdult = isAdult;
-        this.overview = overview;
-        this.releaseDate = releaseDate;
+    public Movie(ApiMovie apiMovie, int resultPage) {
+        this.id = apiMovie.getId();
+        this.voteCount =  apiMovie.getVoteCount();
+        this.isVideo =  apiMovie.isVideo();
+        this.voteAverage =  apiMovie.getVoteAverage();
+        this.title =  apiMovie.getTitle();
+        this.popularity =  apiMovie.getPopularity();
+        this.posterPath =  apiMovie.getPosterPath();
+        this.originalLanguage =  apiMovie.getOriginalLanguage();
+        this.originalTitle =  apiMovie.getOriginalTitle();
+        this.genreIds =  apiMovie.getGenreIds();
+        this.backdropPath =  apiMovie.getBackdropPath();
+        this.isAdult =  apiMovie.isAdult();
+        this.overview =  apiMovie.getOverview();
+        this.releaseDate =  apiMovie.getReleaseDate();
         this.resultPage = resultPage;
     }
 
@@ -229,7 +229,7 @@ public class Movie implements Parcelable {
         dest.writeInt(resultPage);
     }
 
-    protected Movie(Parcel in) {
+    public Movie(Parcel in) {
         this.id = in.readInt();
         this.voteCount = in.readInt();
         this.isVideo = in.readInt()==1?true:false;
@@ -258,4 +258,26 @@ public class Movie implements Parcelable {
             return new Movie[size];
         }
     };
+
+    @VisibleForTesting(otherwise = VisibleForTesting.NONE)
+    public Movie(int id, int voteCount, boolean isVideo, double voteAverage, String title,
+                 double popularity, String posterPath, String originalLanguage,
+                 String originalTitle, int[] genreIds, String backdropPath,
+                 boolean isAdult, String overview, String releaseDate, int resultPage) {
+        this.id = id;
+        this.voteCount = voteCount;
+        this.isVideo = isVideo;
+        this.voteAverage = voteAverage;
+        this.title = title;
+        this.popularity = popularity;
+        this.posterPath = posterPath;
+        this.originalLanguage = originalLanguage;
+        this.originalTitle = originalTitle;
+        this.genreIds = genreIds;
+        this.backdropPath = backdropPath;
+        this.isAdult = isAdult;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
+        this.resultPage = resultPage;
+    }
 }

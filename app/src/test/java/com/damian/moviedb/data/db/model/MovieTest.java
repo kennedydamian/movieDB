@@ -1,4 +1,4 @@
-package com.damian.moviedb.ui.model;
+package com.damian.moviedb.data.db.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -15,16 +15,16 @@ import static org.mockito.Mockito.verify;
 /**
  *
  */
-public class DisplayableMovieTest {
+public class MovieTest {
 
     private Parcel mockedParcel = mock(Parcel.class);
-    private DisplayableMovie movie;
+    private Movie movie;
 
     @Before
     public void before() {
-        movie = new DisplayableMovie(123, 9876, true, 1234.567, "TestMovie", 567.123,
+        movie = new Movie(123, 9876, true, 1234.567, "TestMovie", 567.123,
                 "blah.jpg", "en", "originalTitle", new int[]{123, 345, 567},
-                "blah2.jpg", false, "overview", "2018-17-06");
+                "blah2.jpg", false, "overview", "2018-17-06", 1);
     }
 
     @Test
@@ -99,6 +99,11 @@ public class DisplayableMovieTest {
     }
 
     @Test
+    public void test_getResultPage() {
+        assertEquals(1, movie.getResultPage());
+    }
+
+    @Test
     public void test_parcel_write() {
         movie.writeToParcel(mockedParcel, Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
         verify(mockedParcel).writeString("TestMovie");
@@ -106,12 +111,12 @@ public class DisplayableMovieTest {
 
     @Test
     public void test_parcel_read() {
-        DisplayableMovie movie = new DisplayableMovie(mockedParcel);
+        Movie movie = new Movie(mockedParcel);
 
         movie.writeToParcel(mockedParcel, Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
 
         verify(mockedParcel, times(7)).readString();
-        verify(mockedParcel, times(4)).readInt();
+        verify(mockedParcel, times(5)).readInt();
         verify(mockedParcel, times(2)).readDouble();
         verify(mockedParcel, times(1)).createIntArray();
     }

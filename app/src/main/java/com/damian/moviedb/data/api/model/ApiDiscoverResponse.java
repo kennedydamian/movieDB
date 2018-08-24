@@ -5,6 +5,7 @@ import android.support.annotation.VisibleForTesting;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ApiDiscoverResponse {
 
@@ -18,10 +19,10 @@ public class ApiDiscoverResponse {
     private int totalPages;
 
     @SerializedName("results")
-    private ArrayList<ApiMovie> results;
+    private List<ApiMovie> results;
 
 
-    public ArrayList<ApiMovie> getResults() {
+    public List<ApiMovie> getResults() {
         return results;
     }
 
@@ -38,7 +39,7 @@ public class ApiDiscoverResponse {
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.NONE)
-    public ApiDiscoverResponse(int page, int totalResults, int totalPages, ArrayList<ApiMovie> results) {
+    public ApiDiscoverResponse(int page, int totalResults, int totalPages, List<ApiMovie> results) {
         this.page = page;
         this.totalResults = totalResults;
         this.totalPages = totalPages;

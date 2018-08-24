@@ -52,8 +52,8 @@ public class MovieDaoTest {
         dao.insert(moviesToInsert);
         List<Movie> retrievedMovies = dao.allMovies();
 
-        assertEquals(retrievedMovies.size(), 2);
+        assertEquals(2, retrievedMovies.size());
 
-        assertEquals(retrievedMovies.get(0).getId(), movie.getId());
+        assertEquals(movie.getId(), retrievedMovies.get(0).getId());
     }
 }

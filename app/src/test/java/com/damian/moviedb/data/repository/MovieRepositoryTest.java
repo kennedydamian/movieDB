@@ -6,14 +6,17 @@ import android.arch.paging.DataSource;
 import com.damian.moviedb.Constants;
 import com.damian.moviedb.data.api.MovieApi;
 import com.damian.moviedb.data.api.model.ApiDiscoverResponse;
+import com.damian.moviedb.data.api.model.ApiMovie;
 import com.damian.moviedb.data.db.MovieDao;
 import com.damian.moviedb.data.db.MovieDatabase;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mockito;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executor;
 
 import io.reactivex.Single;
@@ -22,10 +25,10 @@ import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.schedulers.Schedulers;
 
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class MovieRepositoryTest {
 
@@ -41,11 +44,11 @@ public class MovieRepositoryTest {
 
     @Before
     public void before() {
-        mockApi = Mockito.mock(MovieApi.class);
-        db = Mockito.mock(MovieDatabase.class);
-        dao = Mockito.mock(MovieDao.class);
-        factory = Mockito.mock(DataSource.Factory.class);
-        executor = Mockito.mock(Executor.class);
+        mockApi = mock(MovieApi.class);
+        db = mock(MovieDatabase.class);
+        dao = mock(MovieDao.class);
+        factory = mock(DataSource.Factory.class);
+        executor = mock(Executor.class);
 
         when(db.getMovieDao()).thenReturn(dao);
         when(dao.moviesByPopularity()).thenReturn(factory);
@@ -69,21 +72,21 @@ public class MovieRepositoryTest {
 
     @Test
     public void test_fetchPageOfData_emptyResponse() {
-        MovieDao spyDao = spy(MovieDao.class);
-        when(db.getMovieDao()).thenReturn(spyDao);
+        MovieDao mockDao = mock(MovieDao.class);
+        when(db.getMovieDao()).thenReturn(mockDao);
         repo = new MovieRepository(mockApi, db, executor);
 
         ApiDiscoverResponse apiResponse = new ApiDiscoverResponse(0,0,0,null);
 
         when(mockApi.getMostPopularMovies(3, Constants.API_KEY)).thenReturn(Single.just(apiResponse));
         repo.fetchPageOfData(3);
-        verify(spyDao, never()).insert(anyList());
+        verify(mockDao, never()).insert(anyList());
     }
 
     @Test
     public void test_fetchPageOfData_emptyResults() {
-        MovieDao spyDao = spy(MovieDao.class);
-        when(db.getMovieDao()).thenReturn(spyDao);
+        MovieDao mockDao = mock(MovieDao.class);
+        when(db.getMovieDao()).thenReturn(mockDao);
         repo = new MovieRepository(mockApi, db, executor);
 
         ApiDiscoverResponse apiResponse = new ApiDiscoverResponse(3,12345,324,null);
@@ -91,6 +94,24 @@ public class MovieRepositoryTest {
         when(mockApi.getMostPopularMovies(3, Constants.API_KEY)).thenReturn(Single.just(apiResponse));
         repo.fetchPageOfData(3);
 
-        verify(spyDao, never()).insert(anyList());
+        verify(mockDao, never()).insert(anyList());
+    }
+
+    @Test
+    public void test_fetchPageOfData_validResponse() {
+        MovieDao mockDao = mock(MovieDao.class);
+        when(db.getMovieDao()).thenReturn(mockDao);
+        repo = new MovieRepository(mockApi, db, executor);
+
+        List<ApiMovie> movieResults = new ArrayList<>();
+        movieResults.add(mock(ApiMovie.class));
+        movieResults.add(mock(ApiMovie.class));
+
+        ApiDiscoverResponse apiResponse = new ApiDiscoverResponse(3,12345,324, movieResults);
+
+        when(mockApi.getMostPopularMovies(3, Constants.API_KEY)).thenReturn(Single.just(apiResponse));
+        repo.fetchPageOfData(3);
+
+        verify(mockDao).insert(anyList());
     }
 }

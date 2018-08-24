@@ -84,7 +84,7 @@ public class MovieApiTest {
     }
 
     @Test
-    public void test_getMostPopularMovies_error() {
+    public void test_getMostPopularMovies_httpError() {
         int pageToRetrieve = 3;
 
         server.enqueue(new MockResponse()
